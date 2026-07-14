@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Descarga de Certificados - Geospace Solutions</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="./styles.css">
     <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 </head>
@@ -14,7 +14,8 @@
     
     <header>
         <div class="header-container">
-            <img src="assets/logo.png" alt="Geospace Solutions Logo" class="logo" id="header-logo">
+            <!-- Corregido: Ruta adaptada a las mayúsculas reales de tus carpetas en GitHub -->
+            <img src="./Assets/Logo.png" alt="Geospace Solutions Logo" class="logo" id="header-logo">
             <h1>Portal de Certificados</h1>
         </div>
     </header>
@@ -62,8 +63,9 @@
         <p>&copy; 2026 Geospace Solutions. Todos los derechos reservados.</p>
     </footer>
 
-    <script src="assets/certificado_base.js"></script>
-    <script src="data/attendees.js"></script>
-    <script src="app.js"></script>
+    <!-- Corregido: Rutas relativas explícitas con "./" para evitar pérdidas de directorio en GitHub Pages -->
+    <script src="./Assets/certificado_base.js"></script>
+    <script src="./data/attendees.js"></script>
+    <script src="./app.js"></script>
 </body>
 </html>
