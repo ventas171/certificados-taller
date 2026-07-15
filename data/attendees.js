@@ -174,7 +174,7 @@ const attendeesData = [
   {
     "cedula": "1725628034",
     "nombre": "Gabriel Alejandro Rodriguez"
-  }, // <-- ¡Pon esta coma aquí también!
+  },
   {
     "cedula": "1750922146",
     "nombre": "Nicole Abigail Gomez"
