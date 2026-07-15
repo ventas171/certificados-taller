@@ -101,7 +101,7 @@ const attendeesData = [
   },
   {
     "cedula": "1312860081",
-    "nombre": "Ligia Monserrate Barreto Parra"
+    "nombre": "Ligia Monserrate Barreto Parraga"
   },
   {
     "cedula": "0925811838",
