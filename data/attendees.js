@@ -60,10 +60,6 @@ const attendeesData = [
     "nombre": "Evelyn Carolina Montatixe"
   },
   {
-    "cedula": "1725628034",
-    "nombre": "Gabriel Alejandro Rodriguez"
-  },
-  {
     "cedula": "1316818309",
     "nombre": "Gabriela Monserrate Bello Delgado"
   },
@@ -156,10 +152,6 @@ const attendeesData = [
     "nombre": "Natalia Cristina Palacios"
   },
   {
-    "cedula": "1750922146",
-    "nombre": "Nicole Abigail Gomez"
-  },
-  {
     "cedula": "1103696512",
     "nombre": "Richar Rafael Puglla Arevalo"
   },
@@ -178,5 +170,13 @@ const attendeesData = [
   {
     "cedula": "1311628083",
     "nombre": "Viviana Rocio Cevallos"
+  }
+  {
+    "cedula": "1725628034",
+    "nombre": "Gabriel Alejandro Rodriguez"
+  }, // <-- ¡Pon esta coma aquí también!
+  {
+    "cedula": "1750922146",
+    "nombre": "Nicole Abigail Gomez"
   }
 ];
