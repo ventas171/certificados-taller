@@ -91,35 +91,31 @@ document.addEventListener('DOMContentLoaded', () => {
         return clean;
     }
 
-    async function generateCertificate(name) {
+async function generateCertificate(name) {
         const { PDFDocument, StandardFonts, rgb } = PDFLib;
         
-        // Create new document
+        // Crear nuevo documento
         const pdfDoc = await PDFDocument.create();
         
-        // Dimensions 841.89 x 595.28 points
+        // Dimensiones del certificado
         const width = 841.89;
         const height = 595.28;
         const page = pdfDoc.addPage([width, height]);
         
-        // Use embedded background image data
         if (typeof certificadoBase64 === 'undefined') {
             throw new Error("Base64 image data not found");
         }
         
-        // embedPng can take a base64 string directly in pdf-lib if it's passed properly,
-        // or we can convert the base64 string to a Uint8Array.
+        // MÉTODO OPTIMIZADO: Convierte el Base64 de forma segura y limpia en internet
         const base64Data = certificadoBase64.split(',')[1];
         const binaryString = window.atob(base64Data);
-        const len = binaryString.length;
-        const bytes = new Uint8Array(len);
-        for (let i = 0; i < len; i++) {
+        const bytes = new Uint8Array(binaryString.length);
+        for (let i = 0; i < binaryString.length; i++) {
             bytes[i] = binaryString.charCodeAt(i);
         }
-        const imgBytes = bytes.buffer;
         
-        // Assuming it's a PNG based on python script output
-        const bgImage = await pdfDoc.embedPng(imgBytes);
+        // Incrustar la imagen PNG usando los bytes limpios
+        const bgImage = await pdfDoc.embedPng(bytes.buffer);
         
         page.drawImage(bgImage, {
             x: 0,
@@ -128,15 +124,14 @@ document.addEventListener('DOMContentLoaded', () => {
             height: height,
         });
         
-        // Draw name
+        // Configuración del texto del nombre
         const font = await pdfDoc.embedFont(StandardFonts.TimesRomanBold);
         const fontSize = 30;
         
         const textWidth = font.widthOfTextAtSize(name, fontSize);
         const xPos = (width - textWidth) / 2;
-        const yPos = 295; // From bottom
+        const yPos = 295; 
         
-        // Navy blue color #1a2744 (26, 39, 68)
         page.drawText(name, {
             x: xPos,
             y: yPos,
@@ -145,9 +140,8 @@ document.addEventListener('DOMContentLoaded', () => {
             color: rgb(26/255, 39/255, 68/255),
         });
         
-        // Save and download
+        // Guardar y descargar automáticamente
         const pdfBytes = await pdfDoc.save();
-        
         const blob = new Blob([pdfBytes], { type: 'application/pdf' });
         const url = URL.createObjectURL(blob);
         
