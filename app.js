@@ -134,7 +134,7 @@ async function generateCertificate(name) {
             x: 150,                 // Posición horizontal desde la izquierda
             y: 275,                 // Posición vertical desde el fondo
             width: 541,             // Ancho suficiente para tapar todo el nombre
-            height: 45,             // Alto exacto del texto anterior
+            height: 55,             // Alto exacto del texto anterior
             color: rgb(1, 1, 1),    // Color blanco puro (1, 1, 1) para que sea invisible
         });
         // =========================================================================
