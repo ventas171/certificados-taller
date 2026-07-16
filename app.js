@@ -94,28 +94,31 @@ document.addEventListener('DOMContentLoaded', () => {
 async function generateCertificate(name) {
         const { PDFDocument, StandardFonts, rgb } = PDFLib;
         
-        // Crear nuevo documento
+        // Create new document
         const pdfDoc = await PDFDocument.create();
         
-        // Dimensiones del certificado
+        // Dimensions 841.89 x 595.28 points
         const width = 841.89;
         const height = 595.28;
         const page = pdfDoc.addPage([width, height]);
         
+        // Use embedded background image data
         if (typeof certificadoBase64 === 'undefined') {
             throw new Error("Base64 image data not found");
         }
         
-        // MÉTODO OPTIMIZADO: Convierte el Base64 de forma segura y limpia en internet
-        const base64Data = certificadoBase64.split(',')[1];
-        const binaryString = window.atob(base64Data);
-        const bytes = new Uint8Array(binaryString.length);
-        for (let i = 0; i < binaryString.length; i++) {
+        // Convert the base64 string safely
+        const base64Parts = certificadoBase64.split(',');
+        const base64Data = base64Parts.length > 1 ? base64Parts[1] : base64Parts[0];
+        const binaryString = window.atob(base64Data.trim());
+        const len = binaryString.length;
+        const bytes = new Uint8Array(len);
+        for (let i = 0; i < len; i++) {
             bytes[i] = binaryString.charCodeAt(i);
         }
+        const imgBytes = bytes.buffer;
         
-        // Incrustar la imagen PNG usando los bytes limpios
-        const bgImage = await pdfDoc.embedPng(bytes.buffer);
+        const bgImage = await pdfDoc.embedPng(imgBytes);
         
         page.drawImage(bgImage, {
             x: 0,
@@ -123,15 +126,28 @@ async function generateCertificate(name) {
             width: width,
             height: height,
         });
+
+        // =========================================================================
+        // PARCHE DE SEGURIDAD: Tapamos el nombre "Nicole Abigail" con un bloque blanco
+        // =========================================================================
+        page.drawRectangle({
+            x: 150,                 // Posición horizontal desde la izquierda
+            y: 275,                 // Posición vertical desde el fondo
+            width: 541,             // Ancho suficiente para tapar todo el nombre
+            height: 45,             // Alto exacto del texto anterior
+            color: rgb(1, 1, 1),    // Color blanco puro (1, 1, 1) para que sea invisible
+        });
+        // =========================================================================
         
-        // Configuración del texto del nombre
+        // Draw name
         const font = await pdfDoc.embedFont(StandardFonts.TimesRomanBold);
         const fontSize = 30;
         
         const textWidth = font.widthOfTextAtSize(name, fontSize);
         const xPos = (width - textWidth) / 2;
-        const yPos = 295; 
+        const yPos = 295; // From bottom
         
+        // Navy blue color #1a2744 (26, 39, 68)
         page.drawText(name, {
             x: xPos,
             y: yPos,
@@ -140,8 +156,9 @@ async function generateCertificate(name) {
             color: rgb(26/255, 39/255, 68/255),
         });
         
-        // Guardar y descargar automáticamente
+        // Save and download
         const pdfBytes = await pdfDoc.save();
+        
         const blob = new Blob([pdfBytes], { type: 'application/pdf' });
         const url = URL.createObjectURL(blob);
         
