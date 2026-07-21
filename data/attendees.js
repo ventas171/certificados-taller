@@ -173,6 +173,6 @@ const attendeesData = [
   },
   {
     "cedula": "0804589851"
-    "nombre": "Jair Isaac Gracias Flores"
+    "nombre": "Jair Isaac Gracia Flores"
   }
 ];
