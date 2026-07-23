@@ -172,7 +172,7 @@ const attendeesData = [
     "nombre": "Viviana Rocio Cevallos"
   },
   {
-    "cedula": "0804589851"
+    "cedula": "0804589851",
     "nombre": "Jair Isaac Gracia Flores"
   }
 ];
